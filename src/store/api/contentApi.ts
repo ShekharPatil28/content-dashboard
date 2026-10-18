@@ -19,12 +19,16 @@ const MOVIES_PER_PAGE = 8; // TMDB sends 20 per page; keep the mix balanced
 export const contentApi = createApi({
   reducerPath: "contentApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
+  
   endpoints: (build) => ({
-    getNews: build.query<PagedResponse, { category: string; page: number; q?: string }>({
+    getNews: build.query<PagedResponse, { category?: string; page: number; q?: string }>({
       query: ({ category, page, q }) => ({ url: "news", params: { category, page, q } }),
     }),
-    getMovies: build.query<PagedResponse, { page: number; q?: string }>({
-      query: ({ page, q }) => ({ url: "movies", params: { page, q } }),
+    getMovies: build.query<PagedResponse, { page: number; q?: string; trending?: boolean }>({
+      query: ({ page, q, trending }) => ({
+        url: "movies",
+        params: { page, q, trending: trending ? "week" : undefined },
+      }),
     }),
     getSocial: build.query<PagedResponse, { hashtag?: string; page: number; q?: string }>({
       query: ({ hashtag, page, q }) => ({ url: "social", params: { hashtag, page, q } }),

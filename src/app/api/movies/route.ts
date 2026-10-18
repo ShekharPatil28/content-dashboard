@@ -22,6 +22,8 @@ export async function GET(request: NextRequest) {
   if (q) {
     endpoint = "search/movie";
     params.set("query", q);
+  } else if (searchParams.get("trending") === "week") {
+    endpoint = "trending/movie/week";
   } else {
     params.set("sort_by", "popularity.desc");
     // only digits, commas and pipes allowed (genre ids)

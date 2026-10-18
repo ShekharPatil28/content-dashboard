@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Menu, Settings, User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
+import { Suspense } from "react";
+
 
 export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
   return (
@@ -29,6 +31,10 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
         >
           <User size={18} />
         </div>
+
+        <Suspense fallback={null}>
+        <SearchBar />
+      </Suspense>
       </div>
     </header>
   );

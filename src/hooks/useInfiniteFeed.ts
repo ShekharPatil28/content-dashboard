@@ -39,3 +39,5 @@ export function useInfiniteFeed({ categories, q }: { categories: Category[]; q?:
     refetch: query.refetch,
   };
 }
+
+export type FeedState = ReturnType<typeof useInfiniteFeed>;
