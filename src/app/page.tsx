@@ -1,3 +1,10 @@
+import Feed from "@/components/feed/Feed";
+
 export default function FeedPage() {
-  return <h1 className="text-2xl font-bold">Your Feed</h1>;
+  return (
+    <div>
+      <h1 className="mb-6 text-2xl font-bold">Your Feed</h1>
+      <Feed />
+    </div>
+  );
 }

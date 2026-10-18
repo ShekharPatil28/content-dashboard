@@ -3,7 +3,7 @@ import { CATEGORIES } from "@/lib/constants";
 import { errorResponse, getPage, json } from "@/lib/api-helpers";
 import { normalizeNews, type NewsApiArticle } from "@/lib/normalizers";
 
-const PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 10;
 const MAX_RESULTS = 100; // NewsAPI free plan only serves the first 100 results
 
 export async function GET(request: NextRequest) {
@@ -14,11 +14,15 @@ export async function GET(request: NextRequest) {
   const page = getPage(searchParams.get("page"));
   const q = searchParams.get("q")?.trim();
   const category = CATEGORIES.find((c) => c.id === searchParams.get("category"));
+  const requested = Number.parseInt(searchParams.get("pageSize") ?? "", 10);
+  const pageSize = Number.isFinite(requested)
+    ? Math.min(Math.max(requested, 1), 20)
+    : DEFAULT_PAGE_SIZE;
 
   // past the free-plan limit: return an empty page instead of an upstream error
-  if (page * PAGE_SIZE > MAX_RESULTS) return json({ items: [], page, hasMore: false });
+  if (page * pageSize > MAX_RESULTS) return json({ items: [], page, hasMore: false });
 
-  const params = new URLSearchParams({ pageSize: String(PAGE_SIZE), page: String(page) });
+  const params = new URLSearchParams({ pageSize: String(pageSize), page: String(page) });
   let endpoint = "top-headlines";
   if (q) {
     endpoint = "everything";
@@ -41,7 +45,7 @@ export async function GET(request: NextRequest) {
     }
     const items = normalizeNews((data.articles ?? []) as NewsApiArticle[], category?.id);
     const total = Math.min(data.totalResults ?? 0, MAX_RESULTS);
-    return json({ items, page, hasMore: page * PAGE_SIZE < total });
+    return json({ items, page, hasMore: page * pageSize < total });
   } catch {
     return errorResponse("Could not reach the News API", 502);
   }

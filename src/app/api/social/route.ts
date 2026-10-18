@@ -8,12 +8,13 @@ const PAGE_SIZE = 6;
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const page = getPage(searchParams.get("page"));
-  const hashtag = searchParams.get("hashtag")?.replace(/^#/, "").toLowerCase();
-  const q = searchParams.get("q")?.trim().toLowerCase();
+  const hashtags = (searchParams.get("hashtag") ?? "")
+    .split(",")
+    .map((h) => h.replace(/^#/, "").trim().toLowerCase())
+    .filter(Boolean);  const q = searchParams.get("q")?.trim().toLowerCase();
 
   let posts = MOCK_POSTS;
-  if (hashtag) posts = posts.filter((p) => p.hashtags.includes(hashtag));
-  if (q) {
+  if (hashtags.length) posts = posts.filter((p) => p.hashtags.some((h) => hashtags.includes(h)));  if (q) {
     posts = posts.filter(
       (p) => p.text.toLowerCase().includes(q) || p.author.toLowerCase().includes(q)
     );
