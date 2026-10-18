@@ -11,7 +11,7 @@ import { useInfiniteFeed } from "@/hooks/useInfiniteFeed";
 import { getErrorMessage } from "@/lib/errors";
 import InfiniteScroll from "./InfiniteScroll";
 
-const GRID = "grid gap-4 sm:grid-cols-2 xl:grid-cols-3";
+import { CARD_GRID } from "@/lib/constants";
 
 export default function Feed() {
   const categories = useAppSelector((s) => s.preferences.categories);
@@ -37,7 +37,7 @@ export default function Feed() {
 
   if (feed.isLoading) {
     return (
-      <div className={GRID} role="status" aria-label="Loading feed">
+      <div className={CARD_GRID} role="status" aria-label="Loading feed">
         {Array.from({ length: 6 }).map((_, i) => (
           <CardSkeleton key={i} />
         ))}
@@ -71,7 +71,7 @@ export default function Feed() {
           Some sources couldn&apos;t be loaded ({feed.failed.join(", ")}). Showing the rest.
         </p>
       )}
-      <ul className={GRID}>
+      <ul className={CARD_GRID}>
         {feed.items.map((item) => (
           <li key={item.id}>
             <ContentCard item={item} />

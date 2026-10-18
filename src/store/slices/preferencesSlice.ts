@@ -5,7 +5,7 @@ interface PreferencesState {
   categories: Category[];
 }
 
-const initialState: PreferencesState = { categories: ["technology", "sports"] };
+const initialState: PreferencesState = { categories: [] };
 const preferencesSlice = createSlice({
   name: "preferences",
   initialState,

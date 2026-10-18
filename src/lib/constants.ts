@@ -8,3 +8,4 @@ export const CATEGORIES = [
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number]["id"];
+export const CARD_GRID = "grid gap-4 sm:grid-cols-2 xl:grid-cols-3";
