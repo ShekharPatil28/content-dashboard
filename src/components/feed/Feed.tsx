@@ -32,6 +32,7 @@ export default function Feed() {
   return (
     <FeedView
       feed={feed}
+      sortable
       empty={{
         icon: Newspaper,
         title: "Nothing to show yet",
