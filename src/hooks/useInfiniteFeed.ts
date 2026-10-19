@@ -33,6 +33,7 @@ export function useInfiniteFeed({ categories, q }: { categories: Category[]; q?:
     hasNextPage: query.hasNextPage,
     fetchNextPage: query.fetchNextPage,
     isLoading: query.isLoading,
+    isFetching: query.isFetching,
     isFetchingNextPage: query.isFetchingNextPage,
     isError: query.isError,
     error: query.error,

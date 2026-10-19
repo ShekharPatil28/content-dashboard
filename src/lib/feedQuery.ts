@@ -1,4 +1,4 @@
-import type { Category } from "@/lib/constants";
+import { CATEGORIES, type Category } from "@/lib/constants";
 import { interleave } from "@/lib/feed";
 import type { ContentItem, PagedResponse } from "@/types/content";
 
@@ -31,7 +31,7 @@ export async function fetchFeedPage<E>(
   const calls = [
     ...newsCategories.map((category) => ({
       type: "news" as const,
-      request: fetcher({ url: "news", params: { category, page, q, pageSize: perCategory } }),
+      request: fetcher({ url: "news",  params: { page, q, genres: q ? undefined : genresFor(categories) } }),
     })),
     { type: "movies" as const, request: fetcher({ url: "movies", params: { page, q } }) },
     {
@@ -67,6 +67,13 @@ export async function fetchFeedPage<E>(
     else if (type === "movies") movies = data.items.slice(0, MOVIES_PER_PAGE);
     else social = data.items;
   });
+
+  function genresFor(categories: Category[]) {
+  const ids = categories.flatMap(
+    (id) => CATEGORIES.find((c) => c.id === id)?.genres.split("|") ?? []
+  );
+  return [...new Set(ids)].join("|") || undefined;
+}
 
   return {
     data: { items: interleave([interleave(news), movies, social]), hasMore, failed },

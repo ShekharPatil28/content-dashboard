@@ -1,10 +1,10 @@
 export const CATEGORIES = [
-  { id: "technology", label: "Technology", newsApi: "technology" },
-  { id: "sports", label: "Sports", newsApi: "sports" },
-  { id: "finance", label: "Finance", newsApi: "business" }, // NewsAPI has no "finance"
-  { id: "entertainment", label: "Entertainment", newsApi: "entertainment" },
-  { id: "health", label: "Health", newsApi: "health" },
-  { id: "science", label: "Science", newsApi: "science" },
+  { id: "technology", label: "Technology", newsApi: "technology", genres: "878" }, // Sci-Fi
+  { id: "sports", label: "Sports", newsApi: "sports", genres: "18|28" }, // Drama | Action
+  { id: "finance", label: "Finance", newsApi: "business", genres: "18|80" }, // Drama | Crime
+  { id: "entertainment", label: "Entertainment", newsApi: "entertainment", genres: "35|10749|10402" }, // Comedy | Romance | Music
+  { id: "health", label: "Health", newsApi: "health", genres: "99" }, // Documentary
+  { id: "science", label: "Science", newsApi: "science", genres: "878|99" }, // Sci-Fi | Documentary
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number]["id"];

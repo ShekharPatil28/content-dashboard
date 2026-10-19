@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpDown, Check, RotateCcw, type LucideIcon } from "lucide-react";
+import { ArrowUpDown, Check, RefreshCw, RotateCcw, type LucideIcon } from "lucide-react";
 import CardSkeleton from "@/components/cards/CardSkeleton";
 import ContentCard from "@/components/cards/ContentCard";
 import EmptyState from "@/components/ui/EmptyState";
@@ -66,6 +66,20 @@ export default function FeedView({ feed, empty, sortable = false }: Props) {
 
       {sortable && (
         <div className="mb-4 flex items-center justify-end gap-2">
+          
+          <button
+            onClick={() => feed.refetch()}
+            disabled={feed.isFetching}
+            className={`${toolbarButton} disabled:opacity-60`}
+          >
+            <RefreshCw
+              size={14}
+              aria-hidden="true"
+              className={feed.isFetching ? "animate-spin" : ""}
+            />
+            Refresh
+          </button>
+
           {order.length > 0 && (
             <button onClick={() => dispatch(resetOrder())} className={toolbarButton}>
               <RotateCcw size={14} aria-hidden="true" />
