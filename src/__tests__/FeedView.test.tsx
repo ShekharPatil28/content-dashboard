@@ -43,7 +43,7 @@ describe("FeedView states", () => {
     const refetch = jest.fn();
     const error = { status: 500, data: { error: "NEWS_API_KEY is not configured" } };
     renderWithStore(
-      <FeedView feed={makeFeed({ isError: true, error, refetch })} empty={empty} />
+      <FeedView feed={makeFeed({ isError: true,  refetch })} empty={empty} />
     );
 
     expect(screen.getByRole("alert")).toHaveTextContent("NEWS_API_KEY is not configured");
@@ -142,5 +142,14 @@ describe("FeedView ordering", () => {
     await user.click(screen.getByRole("button", { name: /reset order/i }));
     expect(store.getState().feed.order).toEqual([]);
     expect(cardTitles()).toEqual(["Alpha", "Bravo", "Charlie"]);
+  });
+
+  it("refreshes the feed on request", async () => {
+    const user = userEvent.setup();
+    const refetch = jest.fn();
+    renderWithStore(<FeedView feed={makeFeed({ items, refetch })} empty={empty} sortable />);
+
+    await user.click(screen.getByRole("button", { name: "Refresh" }));
+    expect(refetch).toHaveBeenCalledTimes(1);
   });
 });
