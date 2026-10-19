@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap'); */
+
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -38,4 +40,11 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* the app shell scrolls its own content panel, never the window */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
 }

@@ -1,4 +1,5 @@
 import TrendingView from "@/components/feed/TrendingView";
+export const instant = false;
 
 export default function TrendingPage() {
   return (

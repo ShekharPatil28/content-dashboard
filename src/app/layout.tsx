@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "@/store/StoreProvider";
 import AppShell from "@/components/layout/AppShell";
+import { Suspense } from "react";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -26,9 +27,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-full flex flex-col">
-        <StoreProvider>
-          <AppShell>{children}</AppShell>
-        </StoreProvider>
+        <Suspense fallback={null}>
+          <StoreProvider>
+            <AppShell>{children}</AppShell>
+          </StoreProvider>
+        </Suspense>
       </body>
     </html>
   );

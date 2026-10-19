@@ -1,4 +1,5 @@
 import Feed from "@/components/feed/Feed";
+export const instant = false;
 
 export default function FeedPage() {
   return (

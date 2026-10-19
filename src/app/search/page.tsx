@@ -1,5 +1,5 @@
 import SearchResults from "@/components/feed/SearchResults";
-
+export const instant = false;
 export default async function SearchPage({
   searchParams,
 }: {

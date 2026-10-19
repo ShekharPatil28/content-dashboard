@@ -1,15 +1,14 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { Menu, Settings, User } from "lucide-react";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
-import { Suspense } from "react";
-
 
 export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
   return (
-    <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-border bg-surface px-4 py-3">
+      <header className="flex items-center gap-3 bg-surface px-4 py-3">
       <button
         onClick={onMenuClick}
         aria-label="Open menu"
@@ -18,7 +17,9 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
         <Menu size={20} />
       </button>
 
-      <SearchBar />
+      <Suspense fallback={null}>
+        <SearchBar />
+      </Suspense>
 
       <div className="ml-auto flex items-center gap-1">
         <ThemeToggle />
@@ -31,10 +32,6 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
         >
           <User size={18} />
         </div>
-
-        <Suspense fallback={null}>
-        <SearchBar />
-      </Suspense>
       </div>
     </header>
   );

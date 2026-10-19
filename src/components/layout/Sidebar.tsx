@@ -24,7 +24,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
         />
       )}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 border-r border-border bg-surface p-4 transition-transform md:static md:shrink-0 md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 overflow-y-auto bg-surface p-4 shadow-xl transition-transform md:static md:shrink-0 md:translate-x-0 md:shadow-none ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >

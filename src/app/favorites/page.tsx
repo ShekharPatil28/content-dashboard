@@ -1,5 +1,5 @@
 import FavoritesList from "@/components/feed/FavoritesList";
-
+export const instant = false;
 export default function FavoritesPage() {
   return (
     <div>

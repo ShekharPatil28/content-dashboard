@@ -1,5 +1,5 @@
 import CategoryPicker from "@/components/settings/CategoryPicker";
-
+export const instant = false;
 export default function SettingsPage() {
   return (
     <div className="max-w-3xl">

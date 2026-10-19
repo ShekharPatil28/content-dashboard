@@ -32,7 +32,7 @@ export default function ContentCard({ item }: { item: ContentItem }) {
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition duration-200 hover:-translate-y-1 hover:shadow-lg">
-      <div className="relative aspect-video bg-background">
+      <div className="relative aspect-[4/3] overflow-hidden bg-background">
         {showImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -41,10 +41,12 @@ export default function ContentCard({ item }: { item: ContentItem }) {
             loading="lazy"
             referrerPolicy="no-referrer"
             onError={() => setImageFailed(true)}
-            className="h-full w-full object-cover"
+            className={`absolute inset-0 h-full w-full object-cover ${
+              item.type === "movie" ? "object-top" : "object-center"
+            }`}
           />
         ) : (
-          <div className="flex h-full items-center justify-center text-muted">
+          <div className="absolute inset-0 flex items-center justify-center text-muted">
             <Icon size={36} aria-hidden="true" />
           </div>
         )}
