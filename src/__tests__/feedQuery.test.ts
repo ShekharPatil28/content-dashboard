@@ -40,19 +40,26 @@ describe("fetchFeedPage", () => {
       movies: ok(items("m", 2)),
       social: ok(items("s", 2)),
     });
+
     const data = dataOf(await run({ categories: ["technology"] }, fetcher));
-    expect(data.items.map((i) => i.id)).toEqual(["n1", "m1", "s1", "n2", "m2", "s2", "n3"]);
+
+    expect(data.items.map((i) => i.id)).toEqual([
+      "n1", "m1", "s1", "n2", "m2", "s2", "n3",
+    ]);
     expect(data.failed).toEqual([]);
+  });
 
   it("asks for movies that match the chosen categories", async () => {
     const fetcher = makeFetcher({});
     await run({ categories: ["technology", "health"] }, fetcher);
+
     expect(requestsTo(fetcher, "movies")[0].params.genres).toBe("878|99");
   });
 
   it("does not filter movies by genre when searching", async () => {
     const fetcher = makeFetcher({});
     await run({ categories: ["technology"], q: "dune" }, fetcher);
+
     expect(requestsTo(fetcher, "movies")[0].params.genres).toBeUndefined();
   });
   });
