@@ -32,6 +32,7 @@ function payload(source: Source, q: string | null, empty: boolean) {
 // Answers our own /api/* routes with fake data. Pass the same options object
 // you keep a reference to and change it mid-test to simulate an API recovering.
 export async function mockApis(page: Page, options: MockOptions = {}) {
+  await page.addInitScript(() => sessionStorage.setItem("content-hub-intro-seen", "1"));
   const handle = (source: Source) => async (route: Route) => {
     const q = new URL(route.request().url()).searchParams.get("q");
     if (source === "news") options.onNewsQuery?.(q);

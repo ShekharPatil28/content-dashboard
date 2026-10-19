@@ -6,6 +6,7 @@ import { MotionConfig } from "framer-motion";
 import { useAppSelector } from "@/hooks/redux";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import IntroSplash from "./IntroSplash";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,6 +25,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <MotionConfig reducedMotion="user">
+      <IntroSplash />
       <div className="fixed inset-0 flex overflow-hidden bg-surface">
         <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
         <div className="flex min-w-0 flex-1 flex-col">
